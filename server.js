@@ -51,6 +51,19 @@ app.post('/write/adduser', (req, res) => {
   res.send('done');
 })
 
+app.use('/read/username', addMsgToRequest);
+app.get('/read/username/:input', (req, res) => {
+  let name = req.params.input;
+  let users_with_name = req.users.filter(function(user) {
+    return user.username === name;
+  });
+  console.log(users_with_name);
+  // let usernames = req.users.filter(function(user) {
+  //   return {id: user.id, username: user.username};
+  // });
+  res.send(users_with_name);
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
