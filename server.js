@@ -58,10 +58,14 @@ app.get('/read/username/:input', (req, res) => {
     return user.username === name;
   });
   console.log(users_with_name);
-  // let usernames = req.users.filter(function(user) {
-  //   return {id: user.id, username: user.username};
-  // });
-  res.send(users_with_name);
+  if(users_with_name.length === 0 ) {
+    res.send({
+      error:{ message: `${name} not found`, status: 400}
+    });
+  }
+  else{
+    res.send(users_with_name);  
+  }
 });
 
 app.listen(port, () => {
